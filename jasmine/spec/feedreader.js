@@ -16,19 +16,21 @@ $(function() {
          * 比如你把 app.js 里面的 allFeeds 变量变成一个空的数组然后刷新
          * 页面看看会发生什么。
         */
-        /*it('are defined', function() {
+        it('are defined', function() {
             expect(allFeeds).toBeDefined();
             expect(allFeeds.length).not.toBe(0);
-        });/
+        });
 
 
         /* TODO:
          * 编写一个测试遍历 allFeeds 对象里面的所有的源来保证有链接字段而且链接不是空的。
          */
-        it("are defined", function() {
-            expect(allFeeds).toBeDefined();
-            expect(allFeeds instanceof Array).toBeTruthy();
-            expect(allFeeds.length).not.toBe(0);
+        it("have url", function() {
+          allFeeds.forEach(function(allFeeds) {
+            expect(allFeeds.url).toBeDefined();
+            expect(typeof allFeeds.url).toBe("string");
+            expect(allFeeds.url.length).not.toBe(0);
+            });
         });
 
         /* TODO:
@@ -75,9 +77,7 @@ $(function() {
     /* TODO: 13. 写一个叫做 "Initial Entries" 的测试用例 */
     describe("Initial Entries", function() {
         beforeEach(function(done) {
-          loadFeed(0, function() {
-            done();
-          });
+          loadFeed(0, done);
         });
 
         /* TODO:
@@ -87,10 +87,9 @@ $(function() {
          * 记住 loadFeed() 函数是异步的所以这个而是应该使用 Jasmine 的 beforeEach
          * 和异步的 done() 函数。
          */
-        it("has at least 1 entry after loadFeed function is called", function(done) {
+        it("has at least 1 entry after loadFeed function is called", function() {
           var numEntries = document.querySelector(".feed").getElementsByClassName("entry").length;
           expect(numEntries).toBeGreaterThan(0);
-          done();
         });
     });
 
@@ -110,10 +109,9 @@ $(function() {
          * 写一个测试保证当用 loadFeed 函数加载一个新源的时候内容会真的改变。
          * 记住，loadFeed() 函数是异步的。
          */
-        it("changes its loaded content", function(done) {
+        it("changes its loaded content", function() {
           var newFeedSelection = document.querySelector(".feed").innerHTML;
           expect(initFeedSelection).not.toBe(newFeedSelection);
-          done();
         });
     });
 }());
